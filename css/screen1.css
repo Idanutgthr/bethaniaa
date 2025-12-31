@@ -19,23 +19,40 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    /* Background gradient TANPA FD7979 */
-    background: linear-gradient(135deg, 
-        var(--color-cream) 0%, 
-        var(--color-pink-light) 33%, 
-        var(--color-pink-medium) 66%, 
-        var(--color-cream) 100%);
+    /* Background gradient dengan transisi bolak-balik */
+    background: linear-gradient(
+        135deg,
+        var(--color-cream) 0%,
+        var(--color-pink-light) 20%,
+        var(--color-pink-medium) 40%,
+        var(--color-pink-dark) 60%,
+        var(--color-pink-medium) 80%,
+        var(--color-cream) 100%
+    );
     background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    animation: gradientFlow 20s ease infinite;
     min-height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
-@keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Animasi gradient yang mengalir bolak-balik */
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 50% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    75% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* ===== FLOATING EMOJIS ===== */
@@ -114,7 +131,7 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 
-        0 10px 25px rgba(253, 172, 172, 0.3),
+        0 10px 25px rgba(253, 121, 121, 0.3),
         inset 0 4px 10px rgba(255, 255, 255, 0.4);
     animation: pulseFrame 2s ease-in-out infinite;
     overflow: hidden;
@@ -123,12 +140,12 @@ body {
 @keyframes pulseFrame {
     0%, 100% { 
         box-shadow: 
-            0 10px 25px rgba(253, 172, 172, 0.3),
+            0 10px 25px rgba(253, 121, 121, 0.3),
             inset 0 4px 10px rgba(255, 255, 255, 0.4);
     }
     50% { 
         box-shadow: 
-            0 15px 35px rgba(253, 172, 172, 0.4),
+            0 15px 35px rgba(253, 121, 121, 0.4),
             inset 0 6px 15px rgba(255, 255, 255, 0.5);
     }
 }
@@ -167,12 +184,11 @@ body {
 .greeting-text {
     font-family: 'Fredoka One', cursive;
     font-size: 3.2rem;
-    color: var(--color-white); /* WARNA PUTIH */
+    color: var(--color-white);
     margin-bottom: 10px;
     line-height: 1.2;
-    /* HAPUS TEXT-SHADOW YANG MENDUPLIKASI */
     text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.2); /* Shadow halus untuk kontras */
+        2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .greeting-text .text-part {
@@ -190,18 +206,17 @@ body {
 }
 
 .greeting-text .name {
-    color: var(--color-white); /* WARNA PUTIH */
+    color: var(--color-white);
     position: relative;
 }
 
 .main-message {
     font-size: 1.5rem;
-    color: var(--color-white); /* WARNA PUTIH */
+    color: var(--color-white);
     line-height: 1.5;
     font-weight: 600;
-    /* HAPUS TEXT-SHADOW YANG MENDUPLIKASI */
     text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.2); /* Shadow halus untuk kontras */
+        2px 2px 4px rgba(0, 0, 0, 0.3);
     animation: messagePop 1s ease-out 0.5s both;
 }
 
@@ -219,10 +234,9 @@ body {
 .message-text {
     display: block;
     font-weight: 700;
-    color: var(--color-white); /* WARNA PUTIH */
-    /* HAPUS TEXT-SHADOW YANG MENDUPLIKASI */
+    color: var(--color-white);
     text-shadow: 
-        2px 2px 4px rgba(0, 0, 0, 0.3); /* Shadow lebih kuat untuk keterbacaan */
+        2px 2px 5px rgba(0, 0, 0, 0.4);
     animation: messageBounce 1.5s ease-in-out infinite;
     padding: 0 10px;
 }
@@ -250,10 +264,12 @@ body {
     background: linear-gradient(
         135deg,
         var(--color-pink-medium) 0%,
-        var(--color-pink-light) 50%,
-        var(--color-cream) 100%
+        var(--color-pink-light) 25%,
+        var(--color-cream) 50%,
+        var(--color-pink-dark) 75%,
+        var(--color-pink-medium) 100%
     );
-    background-size: 200% 200%;
+    background-size: 400% 400%;
     border: none;
     padding: 22px 50px;
     font-size: 2rem;
@@ -269,7 +285,7 @@ body {
         gradientShift 3s ease infinite,
         buttonFloat 2s ease-in-out infinite;
     box-shadow: 
-        0 12px 30px rgba(253, 172, 172, 0.4),
+        0 12px 30px rgba(253, 121, 121, 0.4),
         0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     z-index: 2;
@@ -285,13 +301,13 @@ body {
     0%, 100% { 
         transform: translateY(0) scale(1);
         box-shadow: 
-            0 12px 30px rgba(253, 172, 172, 0.4),
+            0 12px 30px rgba(253, 121, 121, 0.4),
             0 4px 12px rgba(0, 0, 0, 0.1);
     }
     50% { 
         transform: translateY(-8px) scale(1.05);
         box-shadow: 
-            0 20px 45px rgba(253, 172, 172, 0.6),
+            0 20px 45px rgba(253, 121, 121, 0.6),
             0 6px 18px rgba(0, 0, 0, 0.15);
     }
 }

@@ -1,0 +1,1006 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    /* COLOR PALETTE */
+    --color-cream: #FEEAC9;
+    --color-pink-light: #FFCDC9;
+    --color-pink-medium: #FDACAC;
+    --color-pink-dark: #FD7979;
+    --color-white: #FFFFFF;
+    --color-transparent-white: rgba(255, 255, 255, 0.95);
+    --color-chat-border: rgba(253, 121, 121, 0.8);
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-glass-bg: rgba(255, 255, 255, 0.2);
+    --color-glass-border: rgba(255, 255, 255, 0.3);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #FDACAC;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===== GRADIENT BACKGROUND ===== */
+.gradient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        135deg,
+        var(--color-cream) 0%,
+        var(--color-pink-light) 20%,
+        var(--color-pink-medium) 40%,
+        var(--color-pink-dark) 60%,
+        var(--color-pink-medium) 80%,
+        var(--color-cream) 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientFlow 20s ease infinite;
+    z-index: 1;
+}
+
+@keyframes gradientFlow {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 50%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== FLOATING EMOJIS BACKGROUND ===== */
+#floating-emojis {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.floating-emoji {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
+    z-index: 2;
+    animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.5);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ===== MAIN CONTAINER ===== */
+.screen2-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    z-index: 3;
+    max-width: 1200px;
+    margin: 0 auto;
+    animation: screenFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes screenFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== CHARACTERS SECTION ===== */
+.characters-section {
+    position: relative;
+    height: 250px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible; /* PERUBAHAN: overflow visible bukan hidden */
+}
+
+/* Character Styles - PERUBAHAN: Tambah ruang ekstra */
+.character {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+}
+
+.betha-character {
+    left: -250px; /* PERUBAHAN: Start dari lebih jauh */
+    animation: walkInLeft 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+               floatCharacter 3s ease-in-out infinite 1.5s;
+}
+
+.wildan-character {
+    right: -250px; /* PERUBAHAN: Start dari lebih jauh */
+    animation: walkInRight 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards,
+               floatCharacter 3s ease-in-out infinite 2s;
+}
+
+@keyframes walkInLeft {
+    0% {
+        left: -250px;
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-5px) scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        left: 20%; /* PERUBAHAN: Lebih ke tengah */
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes walkInRight {
+    0% {
+        right: -250px;
+        transform: translateY(20px) scale(0.9);
+        opacity: 0;
+    }
+    60% {
+        transform: translateY(-5px) scale(1.05);
+        opacity: 0.8;
+    }
+    100% {
+        right: 20%; /* PERUBAHAN: Lebih ke tengah */
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes floatCharacter {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Nama Karakter dengan Background Transparan Aesthetic */
+.character-name {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(15px);
+    color: var(--color-white);
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    white-space: nowrap;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 var(--color-glass-border);
+    border: 2px solid var(--color-glass-border);
+    z-index: 11;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
+}
+
+.character-img {
+    width: 140px;
+    height: auto;
+    filter: drop-shadow(0 8px 25px rgba(0, 0, 0, 0.15));
+    transform-origin: bottom center;
+}
+
+/* ===== CHAT SECTION ===== */
+.chat-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.chat-container {
+    width: 95%; /* PERUBAHAN: Lebih lebar */
+    max-width: 900px; /* PERUBAHAN: Max width lebih besar */
+    height: 380px; /* PERUBAHAN: Tinggi lebih besar */
+    position: relative;
+    overflow: visible; /* PERUBAHAN: overflow visible */
+    margin-bottom: 20px;
+}
+
+/* Chat Message Styles - PERUBAHAN: Tambah padding dan margin */
+.chat-message {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 30px; /* PERUBAHAN: Gap lebih besar */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+    padding: 0 10px; /* PERUBAHAN: Tambah padding */
+}
+
+.chat-message.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* SMOOTH ANIMASI CHAT - PERUBAHAN: Start dari lebih jauh */
+.chat-message.you {
+    transform: translateX(120%); /* PERUBAHAN: Dari 120% bukan 100% */
+}
+
+.chat-message.you.slide-in {
+    animation: slideInFromRight 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chat-message.you.slide-out {
+    animation: slideOutToLeft 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chat-message.betha {
+    transform: translateX(-120%); /* PERUBAHAN: Dari -120% bukan -100% */
+}
+
+.chat-message.betha.slide-in {
+    animation: slideInFromLeft 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.chat-message.betha.slide-out {
+    animation: slideOutToRight 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(120%) scale(0.95);
+    }
+    70% {
+        opacity: 0.9;
+        transform: translateX(-2%) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-120%) scale(0.95);
+    }
+    70% {
+        opacity: 0.9;
+        transform: translateX(2%) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes slideOutToLeft {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    30% {
+        opacity: 0.5;
+        transform: translateX(-10%) scale(0.98);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-120%) scale(0.95);
+    }
+}
+
+@keyframes slideOutToRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+    30% {
+        opacity: 0.5;
+        transform: translateX(10%) scale(0.98);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(120%) scale(0.95);
+    }
+}
+
+/* Profile Photo dengan Background Transparan */
+.profile-photo {
+    flex-shrink: 0;
+    width: 110px; /* PERUBAHAN: Lebih besar */
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-glass-border);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 2;
+}
+
+.profile-photo::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(253, 121, 121, 0.6), 
+        rgba(255, 255, 255, 0.4), 
+        rgba(253, 121, 121, 0.6));
+    border-radius: 50%;
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Chat Bubble dengan Background Transparan Aesthetic */
+.chat-bubble {
+    flex: 1;
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 30px; /* PERUBAHAN: Border radius lebih besar */
+    padding: 30px; /* PERUBAHAN: Padding lebih besar */
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--color-glass-border);
+    position: relative;
+    min-height: 220px; /* PERUBAHAN: Lebih tinggi */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.chat-bubble::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(253, 121, 121, 0.4), 
+        rgba(255, 255, 255, 0.2), 
+        rgba(253, 121, 121, 0.4));
+    border-radius: 32px;
+    z-index: -1;
+    animation: gradientBorder 3s ease infinite;
+}
+
+@keyframes gradientBorder {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Chat Image */
+.chat-image {
+    max-width: 100%;
+    max-height: 200px; /* PERUBAHAN: Lebih tinggi */
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+}
+
+/* Chat Instruction dengan Background Transparan */
+.chat-instruction {
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    padding: 12px 30px;
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 25px;
+    border: 2px solid var(--color-glass-border);
+    animation: gentlePulse 2s ease-in-out infinite;
+    margin-top: 20px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chat-instruction.hidden {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+}
+
+@keyframes gentlePulse {
+    0%, 100% { 
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 0.7;
+        transform: scale(0.99);
+    }
+}
+
+/* ===== LET'S GO SECTION - PERUBAHAN: Posisi di tengah layar ===== */
+.lets-go-section {
+    position: fixed;
+    top: 50%; /* PERUBAHAN: Posisi vertikal di tengah */
+    left: 50%; /* PERUBAHAN: Posisi horizontal di tengah */
+    transform: translate(-50%, -50%) translateY(50px); /* PERUBAHAN: Centering */
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    opacity: 0;
+    z-index: 20;
+    transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lets-go-section.show {
+    opacity: 1;
+    transform: translate(-50%, -50%); /* PERUBAHAN: Centering saat show */
+}
+
+.title-container {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 25px 35px; /* PERUBAHAN: Padding lebih besar */
+    margin-bottom: 30px; /* PERUBAHAN: Margin lebih besar */
+    border: 2px solid var(--color-glass-border);
+    box-shadow: 
+        0 15px 35px rgba(253, 172, 172, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    width: 100%;
+    text-align: center;
+}
+
+.adventure-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; /* PERUBAHAN: Font lebih besar */
+    color: var(--color-white);
+    text-align: center;
+    letter-spacing: 3px; /* PERUBAHAN: Letter spacing lebih besar */
+    line-height: 1.3;
+    text-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(255, 255, 255, 0.2);
+    margin: 0;
+}
+
+.title-word {
+    display: inline-block;
+    animation: wordBounce 2s ease-in-out infinite;
+    margin: 0 8px; /* PERUBAHAN: Margin lebih besar */
+}
+
+.title-word:nth-child(1) { animation-delay: 0s; }
+.title-word:nth-child(2) { animation-delay: 0.2s; }
+.title-word:nth-child(3) { animation-delay: 0.4s; }
+.title-word:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes wordBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); } /* PERUBAHAN: Bounce lebih tinggi */
+}
+
+.lets-go-btn {
+    background: linear-gradient(
+        135deg,
+        rgba(253, 121, 121, 0.9) 0%,
+        rgba(253, 172, 172, 0.9) 25%,
+        rgba(255, 205, 201, 0.9) 50%,
+        rgba(254, 234, 201, 0.9) 75%,
+        rgba(253, 121, 121, 0.9) 100%
+    );
+    background-size: 400% 400%;
+    border: none;
+    padding: 25px 60px; /* PERUBAHAN: Padding lebih besar */
+    font-size: 2rem; /* PERUBAHAN: Font lebih besar */
+    font-weight: 800;
+    color: var(--color-white);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    text-transform: uppercase;
+    letter-spacing: 3px; /* PERUBAHAN: Letter spacing lebih besar */
+    transition: all 0.3s;
+    animation: 
+        gradientShift 3s ease infinite,
+        buttonFloat 2s ease-in-out infinite;
+    box-shadow: 
+        0 15px 35px rgba(253, 121, 121, 0.4),
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+    position: relative;
+    min-width: 280px; /* PERUBAHAN: Lebih lebar */
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes buttonFloat {
+    0%, 100% { 
+        transform: translateY(0) scale(1);
+        box-shadow: 
+            0 15px 35px rgba(253, 121, 121, 0.4),
+            0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    50% { 
+        transform: translateY(-12px) scale(1.08); /* PERUBAHAN: Float lebih tinggi */
+        box-shadow: 
+            0 25px 50px rgba(253, 121, 121, 0.6),
+            0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+}
+
+.lets-go-btn:hover {
+    transform: scale(1.1) !important;
+    animation-play-state: paused;
+    backdrop-filter: blur(15px);
+}
+
+.btn-sparkle {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.8rem; /* PERUBAHAN: Lebih besar */
+    animation: sparkle 1.5s infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: rotate(0deg); }
+    50% { opacity: 0.5; transform: rotate(180deg); }
+}
+
+/* ===== WATERMARK ===== */
+.screen-watermark {
+    position: fixed;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-white);
+    padding: 5px;
+    z-index: 100;
+    background: none;
+    backdrop-filter: none;
+    border-top: none;
+    letter-spacing: 0.5px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== RESPONSIVE DESIGN - PERUBAHAN: Lebih responsive ===== */
+@media (max-width: 1024px) {
+    .chat-container {
+        width: 98%;
+        max-width: 850px;
+        height: 350px;
+    }
+    
+    .character-img {
+        width: 120px;
+    }
+    
+    .betha-character {
+        left: -200px;
+    }
+    
+    .wildan-character {
+        right: -200px;
+    }
+    
+    @keyframes walkInLeft {
+        0% { left: -200px; }
+        100% { left: 18%; }
+    }
+    
+    @keyframes walkInRight {
+        0% { right: -200px; }
+        100% { right: 18%; }
+    }
+}
+
+@media (max-width: 768px) {
+    .characters-section {
+        height: 200px;
+    }
+    
+    .character-img {
+        width: 100px;
+    }
+    
+    .betha-character {
+        left: -150px;
+    }
+    
+    .wildan-character {
+        right: -150px;
+    }
+    
+    @keyframes walkInLeft {
+        0% { left: -150px; transform: translateY(20px) scale(0.9); opacity: 0; }
+        60% { transform: translateY(-5px) scale(1.05); opacity: 0.8; }
+        100% { left: 15%; transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    @keyframes walkInRight {
+        0% { right: -150px; transform: translateY(20px) scale(0.9); opacity: 0; }
+        60% { transform: translateY(-5px) scale(1.05); opacity: 0.8; }
+        100% { right: 15%; transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    .character-name {
+        font-size: 1rem;
+        padding: 8px 20px;
+        top: -35px;
+    }
+    
+    .chat-container {
+        height: 320px;
+        width: 100%;
+    }
+    
+    .chat-message {
+        gap: 20px;
+        padding: 0 5px;
+    }
+    
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .chat-bubble {
+        padding: 25px;
+        min-height: 200px;
+        border-radius: 25px;
+    }
+    
+    .chat-image {
+        max-height: 180px;
+    }
+    
+    .adventure-title {
+        font-size: 2.2rem;
+        letter-spacing: 2px;
+    }
+    
+    .lets-go-btn {
+        padding: 20px 50px;
+        font-size: 1.7rem;
+        min-width: 250px;
+        letter-spacing: 2px;
+    }
+    
+    .screen-watermark {
+        font-size: 0.9rem;
+        bottom: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .screen2-container {
+        padding: 10px;
+    }
+    
+    .characters-section {
+        height: 170px;
+        margin-bottom: 15px;
+    }
+    
+    .character-img {
+        width: 80px;
+    }
+    
+    .betha-character {
+        left: -100px;
+    }
+    
+    .wildan-character {
+        right: -100px;
+    }
+    
+    @keyframes walkInLeft {
+        0% { left: -100px; transform: translateY(20px) scale(0.9); opacity: 0; }
+        60% { transform: translateY(-5px) scale(1.05); opacity: 0.8; }
+        100% { left: 10%; transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    @keyframes walkInRight {
+        0% { right: -100px; transform: translateY(20px) scale(0.9); opacity: 0; }
+        60% { transform: translateY(-5px) scale(1.05); opacity: 0.8; }
+        100% { right: 10%; transform: translateY(0) scale(1); opacity: 1; }
+    }
+    
+    .character-name {
+        font-size: 0.85rem;
+        padding: 6px 15px;
+        top: -30px;
+    }
+    
+    .chat-container {
+        height: 280px;
+        margin-bottom: 15px;
+    }
+    
+    .chat-message {
+        gap: 15px;
+        padding: 0;
+    }
+    
+    .profile-photo {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .chat-bubble {
+        padding: 20px;
+        min-height: 170px;
+        border-radius: 20px;
+    }
+    
+    .chat-image {
+        max-height: 150px;
+    }
+    
+    .chat-instruction {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+    
+    .lets-go-section {
+        padding: 0 15px;
+    }
+    
+    .title-container {
+        padding: 20px 25px;
+        margin-bottom: 25px;
+    }
+    
+    .adventure-title {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+    
+    .title-word {
+        margin: 0 5px;
+    }
+    
+    .lets-go-btn {
+        padding: 18px 40px;
+        font-size: 1.5rem;
+        min-width: 220px;
+        letter-spacing: 2px;
+    }
+    
+    .btn-sparkle {
+        font-size: 1.5rem;
+    }
+    
+    .screen-watermark {
+        font-size: 0.8rem;
+        bottom: 10px;
+    }
+}
+
+/* Landscape mode */
+@media (max-height: 600px) and (orientation: landscape) {
+    .characters-section {
+        height: 140px;
+        margin-bottom: 10px;
+    }
+    
+    .character-img {
+        width: 70px;
+    }
+    
+    .character-name {
+        font-size: 0.8rem;
+        top: -25px;
+        padding: 5px 12px;
+    }
+    
+    .chat-container {
+        height: 230px;
+        margin-bottom: 10px;
+    }
+    
+    .profile-photo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .chat-bubble {
+        min-height: 150px;
+        padding: 15px;
+    }
+    
+    .chat-image {
+        max-height: 130px;
+    }
+    
+    .lets-go-section {
+        transform: translate(-50%, -45%) translateY(50px);
+    }
+    
+    .lets-go-section.show {
+        transform: translate(-50%, -45%);
+    }
+    
+    .title-container {
+        padding: 15px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .adventure-title {
+        font-size: 1.6rem;
+    }
+    
+    .lets-go-btn {
+        padding: 15px 35px;
+        font-size: 1.4rem;
+        min-width: 200px;
+    }
+}
+
+/* Fade out untuk characters */
+.characters-section.fade-out {
+    animation: fadeOutUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeOutUp {
+    0% { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% { 
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Ensure no overflow issues */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+/* ⚠️ FIX UNTUK GLITCH KARAKTER */
+.characters-section {
+    position: relative;
+    height: 250px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: visible;
+    /* ⚠️ HAPUS ANIMASI DEFAULT DARI CSS */
+    /* animation: none !important; */
+}
+
+/* ⚠️ KARAKTER AWAL - TIDAK TERLIHAT */
+.character {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    /* ⚠️ RESET ANIMASI DEFAULT */
+    animation: none !important;
+    /* ⚠️ POSISI AWAL SEMENTARA */
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+}
+
+/* ⚠️ OVERRIDE POSISI AWAL DARI CSS */
+.betha-character {
+    left: 20% !important; /* ⚠️ POSISI FINAL LANGSUNG */
+    right: auto !important;
+}
+
+.wildan-character {
+    right: 20% !important; /* ⚠️ POSISI FINAL LANGSUNG */
+    left: auto !important;
+}
+
+/* ⚠️ ANIMASI FLOAT (DIPAKAI SETELAH MASUK) */
+@keyframes floatCharacter {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* ⚠️ PREVENT FLICKER DURING PAGE LOAD */
+body {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: none !important;
+}
+
+.screen2-container {
+    animation: screenFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* ⚠️ SMOOTHER FADE IN */
+@keyframes screenFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
