@@ -2,45 +2,144 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Untuk Kamu ❤️</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Surprise for Bethania 💌</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/screen1.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* Inline CSS untuk mencegah FOUC (Flash of Unstyled Content) */
+        body { margin: 0; overflow: hidden; }
+        #loading-screen { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Untuk <span class="nama">[Nama Pacar]</span> ❤️</h1>
-        </header>
-        
-        <section class="hero">
-            <div class="heart"><i class="fas fa-heart"></i></div>
-            <h2>Ada sesuatu yang ingin aku tanyakan...</h2>
-        </section>
-        
-        <section class="message">
-            <p>Dari semua orang di dunia ini, kamu adalah yang paling spesial.</p>
-            <p>Maukah kamu menjadi...</p>
-            <p class="big-text">PACAR SAYA?</p>
-        </section>
-        
-        <section class="choices">
-            <button class="yes-btn" onclick="jawaban('iya')">
-                <i class="fas fa-heart"></i> IYA! <i class="fas fa-heart"></i>
-            </button>
-            <button class="no-btn" onmouseover="hindariTombol(this)">
-                Mungkin nanti
-            </button>
-        </section>
-        
-        <section class="gallery">
-            <h3>Kenangan Kita</h3>
-            <div class="photos">
-                <!-- Tambahkan foto-foto kalian -->
+    <!-- Loading Screen Responsif -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-hearts">
+                <div class="heart">❤️</div>
+                <div class="heart">💖</div>
+                <div class="heart">💕</div>
+                <div class="heart">💗</div>
+                <div class="heart">💓</div>
             </div>
-        </section>
+            
+            <h2>Loading Special Moment...</h2>
+            
+            <!-- Responsive Loading Bar -->
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            
+            <!-- Loading Percentage -->
+            <span class="loading-percentage" id="loading-percentage">0%</span>
+            
+            <!-- Loading Dots Animation -->
+            <div class="loading-dots">
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+                <div class="loading-dot"></div>
+            </div>
+            
+            <!-- Responsive Hint -->
+            <p class="loading-hint">
+                <i class="fas fa-mobile-alt"></i> 
+                <span id="device-hint"></span>
+            </p>
+        </div>
     </div>
-    
-    <script src="script.js"></script>
+
+    <!-- Main Content -->
+    <div id="main-content" style="display: none;">
+        <!-- Screen akan dimuat di sini -->
+    </div>
+
+    <script>
+        // Deteksi device dan set hint
+        function detectDevice() {
+            const hintElement = document.getElementById('device-hint');
+            const width = window.innerWidth;
+            
+            if (width < 768) {
+                hintElement.textContent = 'Mobile Mode - Best experienced in portrait';
+            } else if (width < 1024) {
+                hintElement.textContent = 'Tablet Mode';
+            } else {
+                hintElement.textContent = 'Desktop Mode';
+            }
+        }
+        
+        // Animate loading percentage
+        function animateLoading() {
+            let percentage = 0;
+            const percentageElement = document.getElementById('loading-percentage');
+            const progressBar = document.querySelector('.loading-progress');
+            
+            const interval = setInterval(() => {
+                percentage += 1;
+                percentageElement.textContent = percentage + '%';
+                
+                // Update progress bar width secara manual
+                progressBar.style.width = percentage + '%';
+                
+                if (percentage >= 100) {
+                    clearInterval(interval);
+                    
+                    // Transisi ke screen utama
+                    setTimeout(() => {
+                        const loadingScreen = document.getElementById('loading-screen');
+                        const mainContent = document.getElementById('main-content');
+                        
+                        // Fade out loading screen
+                        loadingScreen.style.opacity = '0';
+                        loadingScreen.style.transition = 'opacity 0.5s ease';
+                        
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none';
+                            mainContent.style.display = 'block';
+                            
+                            // Redirect ke screen1 atau load content
+                            window.location.href = 'screen1.html';
+                        }, 500);
+                    }, 500);
+                }
+            }, 20); // 20ms = 2 detik untuk 100%
+        }
+        
+        // Initialize saat halaman load
+        window.addEventListener('load', function() {
+            detectDevice();
+            
+            // Adjust untuk orientation change
+            window.addEventListener('resize', detectDevice);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(detectDevice, 100);
+            });
+            
+            // Start loading animation
+            setTimeout(animateLoading, 500);
+        });
+        
+        // Fallback jika loading terlalu lama
+        setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen.style.display !== 'none') {
+                window.location.href = 'screen1.html';
+            }
+        }, 5000); // Timeout setelah 5 detik
+    </script>
 </body>
 </html>
