@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Detect available media files
     async function detectMediaFiles() {
-        const maxPhotos = 4;
-        const maxVideos = 2;
+        const maxPhotos = 10;
+        const maxVideos = 7;
         
         // Detect photos
         SCREEN3_CONFIG.photos = [];
